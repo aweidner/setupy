@@ -1,7 +1,6 @@
-from setupy.core.model import Setup, Setting
-from setupy.core.serialize import serialize_imports, \
-                                  serialize_settings, \
-                                  serialize_features
+from setupy.core.model import Setup
+from setupy.core.setting import Setting
+from setupy.core.serialize import serialize_imports, serialize_settings, serialize_features
 
 
 def test_serializer_can_serialize_with_imports():

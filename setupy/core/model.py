@@ -1,17 +1,3 @@
-class Setting:
-
-    def __init__(self, name, properties):
-        self._name = name
-        self._properties = properties
-
-    @property
-    def name(self):
-        return self._name
-
-    @property
-    def properties(self):
-        return self._properties
-
 
 class Setup:
 

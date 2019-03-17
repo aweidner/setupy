@@ -1,4 +1,5 @@
-from setupy.core.model import Setup, Setting
+from setupy.core.model import Setup
+from setupy.core.setting import Setting
 from setupy.core.serialize import serialize
 from setupy.util import short_unique
 
