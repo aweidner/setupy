@@ -1,5 +1,7 @@
 import json
 from pprint import pformat
+from isort import SortImports
+
 
 def serialize(setup):
     imports = serialize_imports(setup)
@@ -10,11 +12,11 @@ def serialize(setup):
 
 
 def serialize_imports(setup):
-    return "\n".join(setup.imports)
+    return SortImports(file_contents="\n".join(setup.imports)).output
 
 
 def serialize_features(setup):
-    return "\n\n".join(setup.features)
+    return "\n\n".join(f.code for f in setup.features)
 
 
 def serialize_settings(setup):

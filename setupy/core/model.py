@@ -1,19 +1,43 @@
+class Setup():
 
-class Setup:
+    def __init__(self, dependency_loader):
+        self._dependency_loader = dependency_loader
 
-    def __init__(self):
-        self._imports = []
-        self._features = []
+        self._imports = set()
+        self._features = set()
         self._settings = []
 
-    def add_import(self, module):
-        self._imports.append(module)
+    def add_import(self, _import):
+        self._imports.add(_import)
+        return _import
 
-    def add_setting(self, setting):
+    def add_feature(self, feature_name):
+        if any(f.name == feature_name for f in self._features):
+            return
+
+        feature = self._dependency_loader.load_feature(feature_name)
+        self._features.add(feature)
+
+        self._load_dependant_features(feature)
+        self._load_dependant_imports(feature)
+
+    def add_setting(self, setting_name):
+        if any(s.name == setting_name for s in self._settings):
+            return
+
+        setting = self._dependency_loader.load_setting(setting_name)
+        self._load_dependant_imports(setting)
+        self._load_dependant_features(setting)
+
         self._settings.append(setting)
 
-    def add_feature(self, feature):
-        self._features.append(feature)
+    def _load_dependant_features(self, object_with_deps):
+        for f_name in object_with_deps.dependencies("features"):
+            self.add_feature(f_name)
+
+    def _load_dependant_imports(self, object_with_deps):
+        for i in object_with_deps.dependencies("imports"):
+            self.add_import(i)
 
     @property
     def imports(self):

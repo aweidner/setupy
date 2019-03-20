@@ -1,11 +1,16 @@
 class Feature:
-    def __init__(self, name, dependencies={}):
+    def __init__(self, name, dependencies={}, code=""):
         self._name = name
+        self._code = code
         self._dependencies = dependencies
 
     @property
     def name(self):
         return self._name
+
+    @property
+    def code(self):
+        return self._code
 
     def dependencies(self, key):
         return self._dependencies.get(key, [])
