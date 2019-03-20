@@ -1,9 +1,25 @@
+import os
+
 from setupy.core.model import Setup
 from setupy.core.serialize import serialize
-from setupy.dependencies import FileDependencyLoader
+from setupy.loaders import FileDependencyLoader, YamlDependencyLoader
 
 
-def setupy(imports=None, features=None, settings=None, dependency_loader=FileDependencyLoader()):
+def setupy(
+        imports=None,
+        features=None,
+        settings=None,
+        literal_settings=None,
+        dependency_loader=None,
+        feature_path=None,
+        settings_path=None):
+
+    if dependency_loader is None:
+        feature_path = feature_path or os.environ.get("SETUPY_FEATURES")
+        settings_path = settings_path or os.environ.get("SETUPY_SETTINGS")
+
+        dependency_loader = FileDependencyLoader(feature_path, settings_path)
+
     setup = Setup(dependency_loader)
 
     if (not features):
@@ -21,5 +37,10 @@ def setupy(imports=None, features=None, settings=None, dependency_loader=FileDep
         setup.add_feature(f)
     for s in settings:
         setup.add_setting(s)
+
+    literal_loader = YamlDependencyLoader()
+
+    for s in literal_settings:
+        setup.add_setting_object(literal_loader.load_setting(s))
 
     return serialize(setup)

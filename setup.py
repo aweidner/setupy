@@ -1,5 +1,5 @@
-from setuptools import setup
-from setuptools import find_packages
+from setuptools import find_packages, setup
+
 
 def merge(*dicts):
     r = {}
@@ -7,15 +7,16 @@ def merge(*dicts):
         r.update(d)
     return r
 
-BASE = {
+
+base = {
     "name": "mypackage",
     "version": "0.1.0",
     "packages": find_packages(exclude=['contrib', 'docs', 'test'])
 }
 
-SETUPY = {
+setupy = {
     "name": "setupy",
     "version": open("VERSION.txt").read()
 }
 
-setup(**merge(BASE, SETUPY))
+setup(**merge(base, setupy))

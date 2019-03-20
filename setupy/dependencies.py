@@ -1,2 +1,0 @@
-class FileDependencyLoader:
-    pass

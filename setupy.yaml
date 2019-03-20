@@ -1,0 +1,5 @@
+---
+name: setupy
+properties:
+    name: "\"setupy\""
+    version: "open(\"VERSION.txt\").read()"

@@ -31,6 +31,15 @@ class Setup():
 
         self._settings.append(setting)
 
+    def add_setting_object(self, setting_object):
+        if any(s.name == setting_object.name for s in self._settings):
+            return
+
+        self._load_dependant_imports(setting_object)
+        self._load_dependant_features(setting_object)
+
+        self._settings.append(setting_object)
+
     def _load_dependant_features(self, object_with_deps):
         for f_name in object_with_deps.dependencies("features"):
             self.add_feature(f_name)
