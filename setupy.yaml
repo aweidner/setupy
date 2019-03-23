@@ -3,3 +3,7 @@ name: setupy
 properties:
     name: "\"setupy\""
     version: "open(\"VERSION.txt\").read()"
+    long_description: long_description
+dependencies:
+    features:
+        - long_description

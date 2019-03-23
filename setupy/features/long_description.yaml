@@ -1,0 +1,5 @@
+---
+name: long_description
+dependencies:
+    imports:
+        - from os import path
