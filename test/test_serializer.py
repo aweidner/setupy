@@ -60,10 +60,10 @@ def test_serializer_can_serialize_settings():
     setup = Setup(mdl)
     setup.add_setting('BASE')
 
-    assert serialize_settings(setup) == """BASE = {
+    serialized_settings, _ = serialize_settings(setup)
+
+    assert serialized_settings == """BASE = {
     "name": "setupy",
     "version": "0.1.0",
     "packages": find_packages(exclude=['contrib', 'docs', 'test'])
-}
-
-setup(**merge(BASE))"""
+}"""

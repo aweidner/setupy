@@ -12,7 +12,8 @@ def setupy(
         literal_settings=None,
         dependency_loader=None,
         feature_path=None,
-        settings_path=None):
+        settings_path=None,
+        include_help=False):
 
     if dependency_loader is None:
         feature_path = feature_path or os.environ.get("SETUPY_FEATURES")
@@ -40,7 +41,7 @@ def setupy(
 
     literal_loader = YamlDependencyLoader()
 
-    for s in literal_settings:
+    for s in literal_settings or []:
         setup.add_setting_object(literal_loader.load_setting(s))
 
-    return serialize(setup)
+    return serialize(setup, include_help)

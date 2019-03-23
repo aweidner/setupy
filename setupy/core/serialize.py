@@ -1,14 +1,16 @@
-import json
-from pprint import pformat
 from isort import SortImports
+from setupy.help import HELP_SECTION
 
 
-def serialize(setup):
+def serialize(setup, include_help=False):
     imports = serialize_imports(setup)
     features = serialize_features(setup)
-    settings = serialize_settings(setup)
+    settings, setting_names = serialize_settings(setup)
 
-    return f"{imports}\n\n{features}\n\n{settings}"
+    setup_line = f"setup(**merge({setting_names}))"
+    help_section = HELP_SECTION if include_help else ""
+
+    return f"{imports}\n\n{features}\n\n{settings}\n\n{help_section}\n\n{setup_line}"
 
 
 def serialize_imports(setup):
@@ -26,9 +28,8 @@ def serialize_settings(setup):
 
     serialized_settings = "\n\n".join(settings_as_dictionaries)
     setting_names = ", ".join(s.name for s in settings)
-    setup_line = f"setup(**merge({setting_names}))"
 
-    return f"{serialized_settings}\n\n{setup_line}"
+    return (f"{serialized_settings}", setting_names)
 
 
 def to_dictionary(setting):

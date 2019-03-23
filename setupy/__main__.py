@@ -6,6 +6,7 @@ from setupy.setupy import setupy
 parser = argparse.ArgumentParser()
 parser.add_argument('-s', '--setting', dest='settings', nargs='*')
 parser.add_argument('--include-setting', dest='literal_settings', nargs='*')
+parser.add_argument('--include-help', action='store_true', default=False)
 
 args = parser.parse_args()
 
@@ -14,4 +15,8 @@ args = parser.parse_args()
 # settings.  Strip those out.
 literal_settings = filter(lambda x: x.strip() != "", args.literal_settings)
 
-print(setupy(settings=args.settings, literal_settings=literal_settings))
+print(setupy(
+    settings=args.settings,
+    literal_settings=literal_settings,
+    include_help=args.include_help
+))
