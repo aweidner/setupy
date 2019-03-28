@@ -4,6 +4,14 @@ properties:
     name: "\"setupy\""
     version: "open(\"VERSION.txt\").read()"
     long_description: long_description
+    install_request:
+        - "\"isort>=4.3\""
+        - "\"pyyaml>=3.13\""
+    extras_require:
+        dev:
+            - "\"pytest\""
+        neovim:
+            - "\"neovim\""
 dependencies:
     features:
         - long_description

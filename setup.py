@@ -1,3 +1,5 @@
+{'name': '"mypackage"', 'version': '"0.1.0"', 'packages': "find_packages(exclude=['contrib', 'docs', 'test'])"}
+{'name': '"setupy"', 'version': 'open("VERSION.txt").read()', 'long_description': 'long_description', 'install_request': ['"isort>=4.3"', '"pyyaml>=3.13"'], 'extras_require': {'dev': ['"pytest"'], 'neovim': ['"neovim"']}}
 from os import path
 
 from setuptools import find_packages, setup
@@ -25,7 +27,12 @@ base = {
 setupy = {
     "name": "setupy",
     "version": open("VERSION.txt").read(),
-    "long_description": long_description
+    "long_description": long_description,
+    "install_request": ["isort>=4.3", "pyyaml>=3.13"],
+    "extras_require": {
+        "dev": ["pytest"],
+        "neovim": ["neovim"]
+    }
 }
 
 #See:

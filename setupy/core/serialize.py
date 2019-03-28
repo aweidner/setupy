@@ -34,6 +34,7 @@ def serialize_settings(setup):
 
 def to_dictionary(setting):
     name = setting.name
+    print(setting.properties)
     dictionary = pretty(setting.properties)
     return f"{name} = {{\n{dictionary}\n}}"
 
@@ -44,7 +45,11 @@ def pretty(d, indent=1):
         tabs = " " * indent * 4
         formatted_value = value
         if isinstance(formatted_value, dict):
-            formatted_value = pretty(value)
+            prettified = pretty(value, indent + 1)
+            formatted_value = f'{{\n{prettified}\n{tabs}}}'
+        if isinstance(formatted_value, list):
+            values = ", ".join(formatted_value)
+            formatted_value = f'[{values}]'
 
         line = f'{tabs}"{key}": {formatted_value}'
         result.append(line)

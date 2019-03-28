@@ -67,3 +67,29 @@ def test_serializer_can_serialize_settings():
     "version": "0.1.0",
     "packages": find_packages(exclude=['contrib', 'docs', 'test'])
 }"""
+
+
+def test_serializer_can_deserialize_nested_dictionary_setting():
+    mdl = MockDependencyLoader()
+    mdl.a_setting('BASE', properties={
+        "name": "\"setupy\"",
+        "version": "\"0.1.0\"",
+        "packages": "find_packages(exclude=['contrib', 'docs', 'test'])",
+        "extra_requires": {
+            "dev": ["\"pytest\""]
+        }
+    })
+
+    setup = Setup(mdl)
+    setup.add_setting('BASE')
+
+    serialized_settings, _ = serialize_settings(setup)
+
+    assert serialized_settings == """BASE = {
+    "name": "setupy",
+    "version": "0.1.0",
+    "packages": find_packages(exclude=['contrib', 'docs', 'test']),
+    "extra_requires": {
+        "dev": ["pytest"]
+    }
+}"""
