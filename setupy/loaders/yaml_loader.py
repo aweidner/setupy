@@ -6,7 +6,7 @@ import yaml
 class YamlDependencyLoader:
 
     def load_feature(self, contents, code):
-        properties = yaml.load(contents)
+        properties = yaml.load(contents, loader=yaml.Loader)
 
         return Feature(
             properties["name"],
@@ -14,7 +14,7 @@ class YamlDependencyLoader:
             code)
 
     def load_setting(self, contents):
-        properties = yaml.load(contents)
+        properties = yaml.load(contents, loader=yaml.Loader)
         return Setting(
             properties["name"],
             properties["properties"],
