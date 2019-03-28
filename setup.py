@@ -1,14 +1,8 @@
 {'name': '"mypackage"', 'version': '"0.1.0"', 'packages': "find_packages(exclude=['contrib', 'docs', 'test'])"}
-{'name': '"setupy"', 'version': 'open("VERSION.txt").read()', 'long_description': 'long_description', 'install_request': ['"isort>=4.3"', '"pyyaml>=3.13"'], 'extras_require': {'dev': ['"pytest"'], 'neovim': ['"neovim"']}}
+{'name': '"setupy"', 'version': 'open("VERSION.txt").read()', 'long_description': 'long_description', 'install_requires': ['"isort>=4.3"', '"pyyaml>=3.13"'], 'extras_require': {'dev': ['"pytest"'], 'neovim': ['"neovim"']}}
 from os import path
 
 from setuptools import find_packages, setup
-
-
-here = path.abspath(path.dirname(__file__))
-
-with open(path.join(here, 'README.md'), encoding='utf-8') as f:
-    long_description = f.read()
 
 
 def merge(*dicts):
@@ -16,6 +10,12 @@ def merge(*dicts):
     for d in dicts:
         r.update(d)
     return r
+
+
+here = path.abspath(path.dirname(__file__))
+
+with open(path.join(here, 'README.md'), encoding='utf-8') as f:
+    long_description = f.read()
 
 
 base = {
@@ -28,7 +28,7 @@ setupy = {
     "name": "setupy",
     "version": open("VERSION.txt").read(),
     "long_description": long_description,
-    "install_request": ["isort>=4.3", "pyyaml>=3.13"],
+    "install_requires": ["isort>=4.3", "pyyaml>=3.13"],
     "extras_require": {
         "dev": ["pytest"],
         "neovim": ["neovim"]

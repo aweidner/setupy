@@ -4,7 +4,7 @@ properties:
     name: "\"setupy\""
     version: "open(\"VERSION.txt\").read()"
     long_description: long_description
-    install_request:
+    install_requires:
         - "\"isort>=4.3\""
         - "\"pyyaml>=3.13\""
     extras_require:
