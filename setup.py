@@ -1,5 +1,5 @@
 {'name': '"mypackage"', 'version': '"0.1.0"', 'packages': "find_packages(exclude=['contrib', 'docs', 'test'])"}
-{'name': '"setupy"', 'version': 'open("VERSION.txt").read()', 'long_description': 'long_description', 'install_requires': ['"isort>=4.3"', '"pyyaml>=3.13"'], 'extras_require': {'dev': ['"pytest"'], 'neovim': ['"neovim"']}}
+{'name': '"setupy"', 'version': 'open("VERSION.txt").read()', 'long_description': 'long_description', 'install_requires': ['"isort>=4.3"', '"pyyaml>=3.13"'], 'extras_require': {'dev': ['"pytest"', '"pytest-cov"'], 'neovim': ['"neovim"']}}
 from os import path
 
 from setuptools import find_packages, setup
@@ -30,7 +30,7 @@ setupy = {
     "long_description": long_description,
     "install_requires": ["isort>=4.3", "pyyaml>=3.13"],
     "extras_require": {
-        "dev": ["pytest"],
+        "dev": ["pytest", "pytest-cov"],
         "neovim": ["neovim"]
     }
 }
