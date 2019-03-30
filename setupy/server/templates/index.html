@@ -1,1 +1,36 @@
-Hello World
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Setupy - gitignore.io for setup.py</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css" />
+        <link rel="stylesheet" href="static/app.css" />
+    </head>
+    <body>
+        <div class="container">
+            <section class="header center">
+                <h1>Setupy</h1>
+                <p><a href="https://gitignore.io">gitignore.io</a> for <code>setupy.py</code></p>
+            </section>
+            <form action="/post" method="POST">
+                <label for="features">
+                    Features
+                </label>
+                <select multiple size="4" name="features" class="u-full-width">
+                    {% for f in features %}
+                    <option value="{{ f }}">{{ f }}</option>
+                    {% endfor %}
+                </select>
+                <label for="settings">
+                    Settings
+                </label>
+                <select multiple size="4" name="settings" class="u-full-width">
+                    {% for s in settings %}
+                    <option value="{{ s }}">{{ s }}</option>
+                    {% endfor %}
+                </select>
+                <input type="checkbox" name="include_help">Include help text<br>
+                <input class="button-primary" value="Create" type="submit">
+            </form>
+        </div>
+    </body>
+</html>

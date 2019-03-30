@@ -34,7 +34,6 @@ def serialize_settings(setup):
 
 def to_dictionary(setting):
     name = setting.name
-    print(setting.properties)
     dictionary = pretty(setting.properties)
     return f"{name} = {{\n{dictionary}\n}}"
 
