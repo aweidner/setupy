@@ -75,6 +75,6 @@ def get_setup_file_posted():
     response_text = _make_setup_file(
         feature_names,
         setting_names,
-        request.form['include_help'] == 'on')
+        request.form.get('include_help') == 'on')
 
     return Response(response_text, mimetype='text/plain')
