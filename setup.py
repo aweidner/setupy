@@ -6,7 +6,10 @@ from shutil import rmtree
 from setuptools import Command, find_packages, setup
 
 
-VERSION = open("VERSION.txt").read()
+here = path.abspath(path.dirname(__file__))
+
+with open(path.join(here, 'README.md'), encoding='utf-8') as f:
+    long_description = f.read()
 
 
 class UploadCommand(Command):
@@ -46,10 +49,7 @@ class UploadCommand(Command):
         sys.exit()
 
 
-here = path.abspath(path.dirname(__file__))
-
-with open(path.join(here, 'README.md'), encoding='utf-8') as f:
-    long_description = f.read()
+VERSION = open("VERSION.txt").read()
 
 
 def merge(*dicts):

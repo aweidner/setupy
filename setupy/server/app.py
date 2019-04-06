@@ -1,6 +1,7 @@
 from functools import lru_cache
 from setupy.core.model import Setup
 from setupy.core.serialize import serialize
+from setupy.errors import FeatureNotFoundError, SettingNotFoundError
 import os
 from flask import Flask, render_template, Response, request
 from setupy.loaders import FileDependencyLoader
@@ -35,13 +36,27 @@ def _make_setup_file(features, settings, include_help):
 
     setup = Setup(dependency_loader)
 
-    for f in features:
-        setup.add_feature(f)
-    for s in settings:
-        setup.add_setting(s)
+    missing_features = []
+    missing_settings = []
 
-    return serialize(setup, include_help)
+    try:
+        for f in features:
+            setup.add_feature(f)
+    except FeatureNotFoundError:
+        missing_features.append(f)
 
+    try:
+        for s in settings:
+            setup.add_setting(s)
+    except SettingNotFoundError:
+        missing_settings.append(s)
+
+    setup_file_contents = serialize(setup, include_help)
+
+    not_found_features = '\n'.join(f'# Feature {f} was not found' for f in missing_features)
+    not_found_settings = '\n'.join(f'# Setting {s} was not found' for s in missing_settings)
+    error_text = f'{not_found_features}\n{not_found_settings}'
+    return f'{setup_file_contents}\n\n{error_text}'
 
 @app.route('/')
 def index():

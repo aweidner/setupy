@@ -1,8 +1,10 @@
 import os
+import sys
 
 from setupy.core.model import Setup
 from setupy.core.serialize import serialize
 from setupy.loaders import FileDependencyLoader, YamlDependencyLoader
+from setupy.errors import FeatureNotFoundError, SettingNotFoundError
 
 DIR_PATH = os.path.dirname(os.path.realpath(__file__))
 
@@ -40,10 +42,18 @@ def setupy(
 
     for i in imports:
         setup.add_import(i)
+
     for f in features:
-        setup.add_feature(f)
+        try:
+            setup.add_feature(f)
+        except FeatureNotFoundError:
+            print(f'WARNING: Feature {f} was not found', file=sys.stderr)
+
     for s in settings:
-        setup.add_setting(s)
+        try:
+            setup.add_setting(s)
+        except SettingNotFoundError:
+            print(f'WARNING: Setting {s} was not found', file=sys.stderr)
 
     literal_loader = YamlDependencyLoader()
 

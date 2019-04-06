@@ -3,6 +3,7 @@ import argparse
 from setupy.setupy import setupy
 
 parser = argparse.ArgumentParser()
+parser.add_argument('-f', '--features', dest='features', nargs='*')
 parser.add_argument('-s', '--setting', dest='settings', nargs='*')
 parser.add_argument('--include-setting', dest='literal_settings', nargs='*')
 parser.add_argument('--include-help', action='store_true', default=False)
@@ -21,6 +22,7 @@ else:
 
     print(setupy(
         settings=args.settings,
+        features=args.features,
         literal_settings=literal_settings,
         include_help=args.include_help
     ))

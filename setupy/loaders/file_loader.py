@@ -1,6 +1,7 @@
 import os
 
 from setupy.loaders import YamlDependencyLoader
+from setupy.errors import SettingNotFoundError, FeatureNotFoundError
 
 
 def _without_extension(iterable):
@@ -30,10 +31,16 @@ class FileDependencyLoader:
 
     def load_feature(self, feature_name):
         prefix = os.path.join(self._feature_path, feature_name)
-        with open(prefix + ".yaml") as yaml:
-            with open(prefix + ".py") as py:
-                return self._yaml_loader.load_feature(yaml.read(), py.read())
+        try:
+            with open(prefix + ".yaml") as yaml:
+                with open(prefix + ".py") as py:
+                    return self._yaml_loader.load_feature(yaml.read(), py.read())
+        except FileNotFoundError as e:
+            raise FeatureNotFoundError(feature_name) from e
 
     def load_setting(self, setting_name):
-        with open(os.path.join(self._setting_path, setting_name) + ".yaml") as yaml:
-            return self._yaml_loader.load_setting(yaml.read())
+        try:
+            with open(os.path.join(self._setting_path, setting_name) + ".yaml") as yaml:
+                return self._yaml_loader.load_setting(yaml.read())
+        except FileNotFoundError as e:
+            raise SettingNotFoundError(setting_name) from e
