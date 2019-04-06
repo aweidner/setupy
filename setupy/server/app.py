@@ -5,10 +5,14 @@ import os
 from flask import Flask, render_template, Response, request
 from setupy.loaders import FileDependencyLoader
 
+DIR_PATH = os.path.dirname(os.path.realpath(__file__))
+
 app = Flask(__name__)
 
-feature_path = os.environ.get('SETUPY_FEATURES')
-settings_path = os.environ.get('SETUPY_SETTINGS')
+feature_path = os.environ.get('SETUPY_FEATURES',
+                              os.path.join(DIR_PATH, "../features"))
+settings_path = os.environ.get('SETUPY_SETTINGS',
+                               os.path.join(DIR_PATH, "../settings"))
 
 dependency_loader = FileDependencyLoader(feature_path, settings_path)
 
@@ -24,11 +28,10 @@ def _setting_names():
 
 
 def _make_setup_file(features, settings, include_help):
-    if len(settings) == 0:
-        settings = ['base']
-
-    if len(settings) == 0:
-        features = ['merge']
+    if 'base' not in settings:
+        settings.insert(0, 'base')
+    if 'merge' not in features:
+        features.insert(0, 'merge')
 
     setup = Setup(dependency_loader)
 

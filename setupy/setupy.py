@@ -4,6 +4,8 @@ from setupy.core.model import Setup
 from setupy.core.serialize import serialize
 from setupy.loaders import FileDependencyLoader, YamlDependencyLoader
 
+DIR_PATH = os.path.dirname(os.path.realpath(__file__))
+
 
 def setupy(
         imports=None,
@@ -16,8 +18,12 @@ def setupy(
         include_help=False):
 
     if dependency_loader is None:
-        feature_path = feature_path or os.environ.get("SETUPY_FEATURES")
-        settings_path = settings_path or os.environ.get("SETUPY_SETTINGS")
+        feature_path = (feature_path or
+                        os.environ.get("SETUPY_FEATURES") or
+                        os.path.join(DIR_PATH, "features"))
+        settings_path = (settings_path or
+                         os.environ.get("SETUPY_SETTINGS") or
+                         os.path.join(DIR_PATH, "settings"))
 
         dependency_loader = FileDependencyLoader(feature_path, settings_path)
 
