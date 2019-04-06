@@ -1,0 +1,8 @@
+---
+name: add_long_description
+dependencies:
+    features:
+        - long_description
+properties:
+    long_description: long_description
+    long_description_content_type: "\"text/markdown\""

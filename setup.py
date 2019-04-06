@@ -9,13 +9,6 @@ from setuptools import Command, find_packages, setup
 VERSION = open("VERSION.txt").read()
 
 
-def merge(*dicts):
-    r = {}
-    for d in dicts:
-        r.update(d)
-    return r
-
-
 class UploadCommand(Command):
     """Support setup.py upload."""
 
@@ -59,6 +52,13 @@ with open(path.join(here, 'README.md'), encoding='utf-8') as f:
     long_description = f.read()
 
 
+def merge(*dicts):
+    r = {}
+    for d in dicts:
+        r.update(d)
+    return r
+
+
 base = {
     "name": "mypackage",
     "version": "0.1.0",
@@ -71,10 +71,14 @@ add_upload_command = {
     }
 }
 
+add_long_description = {
+    "long_description": long_description,
+    "long_description_content_type": "text/markdown"
+}
+
 setupy = {
     "name": "setupy",
     "version": VERSION,
-    "long_description": long_description,
     "install_requires": ["isort>=4.3", "pyyaml>=3.13", "flask>=1.0.2"],
     "extras_require": {
         "dev": ["pytest", "pytest-cov"],
@@ -84,4 +88,4 @@ setupy = {
 
 
 
-setup(**merge(base, add_upload_command, setupy))
+setup(**merge(base, add_upload_command, add_long_description, setupy))
