@@ -1,0 +1,8 @@
+---
+name: add_upload_command
+dependencies:
+    features:
+        - upload
+properties:
+    cmdclass:
+        upload: UploadCommand

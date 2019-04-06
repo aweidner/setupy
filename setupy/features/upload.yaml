@@ -1,0 +1,10 @@
+---
+name: upload
+dependencies:
+    features:
+        - version_txt
+    imports:
+        - import os
+        - from shutil import rmtree 
+        - import sys
+        - from setuptools import Command

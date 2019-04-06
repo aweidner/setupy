@@ -2,7 +2,7 @@
 name: setupy
 properties:
     name: "\"setupy\""
-    version: "open(\"VERSION.txt\").read()"
+    version: VERSION 
     long_description: long_description
     install_requires:
         - "\"isort>=4.3\""
@@ -17,3 +17,5 @@ properties:
 dependencies:
     features:
         - long_description
+        - upload
+        - version_txt
