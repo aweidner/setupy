@@ -11,7 +11,7 @@ layers of features and settings.
 
 # Use
 
-`setup.py` files can be generated from [setu.py](https://setu.py) in one of two ways
+`setup.py` files can be generated from [setupy.dev](https://setupy.dev) in one of two ways
 
 * The web UI (with or without Javascript enabled)
 * The API
@@ -20,19 +20,19 @@ layers of features and settings.
 Some examples of API usage on the web
 
     # Get a base setup.py file that can be extended
-    curl https://setu.py/get
+    curl https://setupy.dev/get
 
     # Include the help text to make it easier to manually edit the output
-    curl https://setu.py/get?include_help=true
+    curl https://setupy.dev/get?include_help=true
 
     # Include a feature and setting 
-    curl https://setu.py/get?features=merge&settings=add_upload_command
+    curl https://setupy.dev/get?features=merge&settings=add_upload_command
 
     # Get a list of all the available features
-    curl https://setu.py/features/list
+    curl https://setupy.dev/features/list
 
     # Get a list of all available settings
-    curl https://setu.py/settings/list
+    curl https://setupy.dev/settings/list
 
 And on the command line (if [setupy](https://pypi.org/project/setupy/) is installed)
 
