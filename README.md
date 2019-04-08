@@ -15,7 +15,6 @@ layers of features and settings.
 
 * The web UI (with or without Javascript enabled)
 * The API
-* The command line 
 
 Some examples of API usage on the web
 
