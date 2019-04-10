@@ -58,12 +58,23 @@ def _make_setup_file(features, settings, include_help):
     error_text = f'{not_found_features}\n{not_found_settings}'
     return f'{setup_file_contents}\n\n{error_text}'
 
+
 @app.route('/')
 def index():
     return render_template(
             'index.html',
             features=dependency_loader.feature_names(),
             settings=dependency_loader.setting_names())
+
+
+@app.route('/list/features', methods=['GET'])
+def list_features():
+    return Response(','.join(_feature_names()), mimetype='text/plain')
+
+
+@app.route('/list/settings', methods=['GET'])
+def list_settings():
+    return Response(','.join(_setting_names()), mimetype='text/plain')
 
 
 @app.route('/get', methods=['GET'])
