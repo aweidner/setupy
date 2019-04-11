@@ -18,6 +18,12 @@ settings_path = os.environ.get('SETUPY_SETTINGS',
 dependency_loader = FileDependencyLoader(feature_path, settings_path)
 
 
+def _split_or_empty(possible_string, delim):
+    if possible_string:
+        return possible_string.split(delim)
+    return []
+
+
 @lru_cache()
 def _feature_names():
     return dependency_loader.feature_names()
@@ -79,8 +85,8 @@ def list_settings():
 
 @app.route('/get', methods=['GET'])
 def get_setup_file():
-    setting_names = request.args.get('settings', '').split(',')
-    feature_names = request.args.get('features', '').split(',')
+    setting_names = _split_or_empty(request.args.get('settings', ''), ',')
+    feature_names = _split_or_empty(request.args.get('features', ''), ',')
 
     response_text = _make_setup_file(
         feature_names,

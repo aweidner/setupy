@@ -3,6 +3,7 @@
     <head>
         <title>Setupy - gitignore.io for setup.py</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/css/selectize.default.css">
         <link rel="stylesheet" href="static/app.css" />
     </head>
     <body>
@@ -11,26 +12,55 @@
                 <h1>Setupy</h1>
                 <p><a href="https://gitignore.io">gitignore.io</a> for <code>setupy.py</code></p>
             </section>
-            <form action="/post" method="POST">
-                <label for="features">
-                    Features
-                </label>
-                <select multiple size="4" name="features" class="u-full-width">
-                    {% for f in features %}
-                    <option value="{{ f }}">{{ f }}</option>
-                    {% endfor %}
-                </select>
-                <label for="settings">
-                    Settings
-                </label>
-                <select multiple size="4" name="settings" class="u-full-width">
-                    {% for s in settings %}
-                    <option value="{{ s }}">{{ s }}</option>
-                    {% endfor %}
-                </select>
-                <input type="checkbox" name="include_help">Include help text<br>
-                <input class="button-primary" value="Create" type="submit">
-            </form>
+            <noscript>
+                <form action="/post" method="POST" id="fallback-form">
+                    <label for="features">
+                        Features
+                    </label>
+                    <select multiple size="4" name="features" class="u-full-width">
+                        {% for f in features %}
+                        <option value="{{ f }}">{{ f }}</option>
+                        {% endfor %}
+                    </select>
+                    <label for="settings">
+                        Settings
+                    </label>
+                    <select multiple size="4" name="settings" class="u-full-width">
+                        {% for s in settings %}
+                        <option value="{{ s }}">{{ s }}</option>
+                        {% endfor %}
+                    </select>
+                    <input type="checkbox" name="include_help">Include help text<br>
+                    <input class="button-primary" value="Create" type="submit">
+                </form>
+            </noscript>
+            <div id = "javascript-enabled-container">
+                <div class = "row">
+                    <div class = "ten columns">
+                        <select multiple id="setting-feature-select">
+                            {% for f in features %}
+                            <option value="f:{{ f }}">{{ f }} (feature)</option>
+                            {% endfor %}
+                            {% for s in settings %}
+                            <option value="s:{{ s }}">{{ s }} (setting)</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class = "two columns">
+                        <button class="button-primary" id="create-setup">
+                            Create
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class = "row">
+                Try: <a href = "/get?features=version_txt&settings=add_upload_command,add_long_description">add_upload_command (setting), add_long_description (setting)
+                </a>
+            </div>
         </div>
+        <script src="https://code.jquery.com/jquery-3.4.0.min.js"
+			  crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/js/standalone/selectize.min.js"></script>
+        <script src="static/app.js"></script>
     </body>
 </html>
