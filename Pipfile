@@ -15,6 +15,7 @@ isort = "*"
 pytest-cov = "*"
 flask = "*"
 twine = "*"
+requests = "*"
 
 
 [dev-packages]
